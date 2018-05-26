@@ -37,26 +37,35 @@ public class GameWindow extends JFrame {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 //                    gameCanvas.positionXplayer -= 3;
-                    gameCanvas.player.run("left",1024,600);
+                    gameCanvas.player.velocity.x = -8;
+                    gameCanvas.player.run();
 
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 //                    gameCanvas.positionXplayer += 3;
-                    gameCanvas.player.run("right",1024,600);
+                    gameCanvas.player.velocity.x = +8;
+                    gameCanvas.player.run();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
 //                    gameCanvas.positionYplayer -= 3;
-                    gameCanvas.player.run("up",1024,600);
+                    gameCanvas.player.velocity.y = -8;
+                    gameCanvas.player.run();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 //                    gameCanvas.positionYplayer += 3;
-                    gameCanvas.player.run("down",1024,600);
+                    gameCanvas.player.velocity.y = +8;
+                    gameCanvas.player.run();
                 }
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-
+//                if (e.getKeyCode() == KeyEvent.VK_LEFT){
+//                    gameCanvas.player.velocityX = 0;
+//                }
+//                if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+//                    gameCanvas.player.velocityX = 0;
+//                }
             }
         });
     }

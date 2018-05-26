@@ -14,6 +14,7 @@ public class GameCanvas extends JPanel {
     BufferedImage backBuffered;
     Graphics graphics;
 
+    Background background;
     List<Star> stars;
     List<Enemy> enemies;
     private Random random = new Random();
@@ -23,12 +24,6 @@ public class GameCanvas extends JPanel {
     Star star;
     Enemy enemy;
     Player player;
-
-//    public int positionXenemy = 30;
-//    public int positionYenemy = 20;
-//
-//    public int positionXplayer = 200;
-//    public int positionYplayer = 200;
 
     public GameCanvas() {
         this.setSize(1024, 600);
@@ -47,6 +42,7 @@ public class GameCanvas extends JPanel {
     }
 
     private void setupCharacter() {
+        this.background = new Background(0,0, 1024, 600, Color.black);
         this.createPlayer();
         this.setupStar();
         this.setupEnemy();
@@ -65,9 +61,10 @@ public class GameCanvas extends JPanel {
     }
 
     public void renderAll() {
-        this.renderBackground();
+//        this.renderBackground();
 //        this.star.render(this.graphics);
 //       lambdas expression
+        this.background.render(graphics);
         this.stars.forEach(star -> star.render(graphics));
         this.enemies.forEach(enemy -> enemy.render(graphics));
         this.player.render(graphics);
@@ -87,7 +84,8 @@ public class GameCanvas extends JPanel {
     }
 
     private void createPlayer(){
-        this.player = new Player(this.loadImage("resources-rocket/resources/images/circle.png"), this.random.nextInt(1024), this.random.nextInt(600), 30,30, 10,10);
+        this.player = new Player();
+        this.player.position.set(500,300);
     }
 
     private void createStar() {
@@ -101,8 +99,18 @@ public class GameCanvas extends JPanel {
     }
 
     private void createEnemy() {
-        if (this.countEnemy == 40) {
-            Enemy enemy = new Enemy(this.loadImage("resources-rocket/resources/images/circle.png"), this.random.nextInt(1024), this.random.nextInt(600), 15, 15, -this.random.nextInt(3) - 1, -this.random.nextInt(3) - 1);
+        if (this.countEnemy == 50) {
+            int dau = this.random.nextInt(2);
+            if (dau == 0) dau = -1;
+            else dau = 1;
+            int velocityX = dau * (this.random.nextInt(4)+1);
+
+            dau = this.random.nextInt(2);
+            if (dau == 0) dau = -1;
+            else dau = 1;
+            int velocityY = dau * (this.random.nextInt(4)+1);
+
+            Enemy enemy = new Enemy(this.loadImage("resources-rocket/resources/images/circle.png"), this.random.nextInt(1024), this.random.nextInt(600), 15, 15, velocityX, velocityY);
             this.enemies.add(enemy);
             this.countEnemy = 0;
         } else {
