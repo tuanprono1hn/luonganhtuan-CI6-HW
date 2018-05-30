@@ -19,11 +19,11 @@ public class Player {
         this.velocity = new Vector2D();
         this.speed = 4;
         this.random = new Random();
-        this.verties = Arrays.asList(
-                new Vector2D(),
-                new Vector2D(0,16),
-                new Vector2D(20,8)
-        );
+//        this.verties = Arrays.asList(
+//                new Vector2D(),
+//                new Vector2D(),
+//                new Vector2D()
+//        );
         this.polygon = new Polygon();
     }
 
@@ -70,8 +70,8 @@ public class Player {
 
     public void setVerties(){
         this.verties = Arrays.asList(
-                new Vector2D(this.position.x - 10, this.position.y - 12),
-                new Vector2D(this.position.x - 10, this.position.y +12),
+                new Vector2D(this.position.x, this.position.y - 10),
+                new Vector2D(this.position.x, this.position.y + 10),
                 new Vector2D(this.position.x + 20, this.position.y)
         );
     }
