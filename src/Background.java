@@ -1,15 +1,13 @@
 import java.awt.*;
 
 public class Background {
-    public int x;
-    public int y;
+    public Vector2D position;
     public int width;
     public int height;
     public Color color;
 
-    public Background(int x, int y, int width, int height, Color color) {
-        this.x = x;
-        this.y = y;
+    public Background(Vector2D position, int width, int height, Color color) {
+        this.position = position;
         this.width = width;
         this.height = height;
         this.color = color;
@@ -17,6 +15,6 @@ public class Background {
 
     public void render(Graphics graphics){
         graphics.setColor(this.color);
-        graphics.fillRect(this.x, this.y, this.width, this.height);
+        graphics.fillRect((int)this.position.x, (int)this.position.y, this.width, this.height);
     }
 }

@@ -8,6 +8,8 @@ import java.util.List;
 public class Player {
     public Vector2D position;
     public Vector2D velocity;
+//    public double angle;
+    public float speed;
     private Random random;
     private List<Vector2D> verties;
     private Polygon polygon;
@@ -15,6 +17,7 @@ public class Player {
     public Player() {
         this.position = new Vector2D();
         this.velocity = new Vector2D();
+        this.speed = 4;
         this.random = new Random();
         this.verties = Arrays.asList(
                 new Vector2D(),
@@ -56,10 +59,23 @@ public class Player {
 //            this.y += dY;
 //        }
 //    }
+
     public void run(){
+//        this.velocity = (this.velocity.normalize().multiply(speed));
+//        this.velocity = this.velocity.rotate(angle);
         this.position.addUp(this.velocity);
+        this.setVerties();
         this.backToScreen();
     }
+
+    public void setVerties(){
+        this.verties = Arrays.asList(
+                new Vector2D(this.position.x - 10, this.position.y - 12),
+                new Vector2D(this.position.x - 10, this.position.y +12),
+                new Vector2D(this.position.x + 20, this.position.y)
+        );
+    }
+
     private void backToScreen(){
         if (this.position.x > 1024){
             this.position.set(0, this.random.nextInt(600));

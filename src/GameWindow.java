@@ -36,36 +36,38 @@ public class GameWindow extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-//                    gameCanvas.positionXplayer -= 3;
                     gameCanvas.player.velocity.x = -8;
-                    gameCanvas.player.run();
+//                    gameCanvas.player.run();
 
                 }
                 if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-//                    gameCanvas.positionXplayer += 3;
                     gameCanvas.player.velocity.x = +8;
-                    gameCanvas.player.run();
+//                    gameCanvas.player.run();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_UP) {
-//                    gameCanvas.positionYplayer -= 3;
                     gameCanvas.player.velocity.y = -8;
-                    gameCanvas.player.run();
+//                    gameCanvas.player.run();
                 }
                 if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-//                    gameCanvas.positionYplayer += 3;
                     gameCanvas.player.velocity.y = +8;
-                    gameCanvas.player.run();
+//                    gameCanvas.player.run();
                 }
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-//                if (e.getKeyCode() == KeyEvent.VK_LEFT){
-//                    gameCanvas.player.velocityX = 0;
-//                }
-//                if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-//                    gameCanvas.player.velocityX = 0;
-//                }
+                if (e.getKeyCode() == KeyEvent.VK_LEFT){
+                    gameCanvas.player.velocity.x = 0;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_RIGHT){
+                    gameCanvas.player.velocity.x = 0;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_UP){
+                    gameCanvas.player.velocity.y = 0;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_DOWN){
+                    gameCanvas.player.velocity.y =0;
+                }
             }
         });
     }
@@ -83,11 +85,6 @@ public class GameWindow extends JFrame {
             long currentTime = System.nanoTime();
             if (currentTime - lastTime >= 17_000_000) {
                 this.gameCanvas.runAll();
-//                this.gameCanvas.positionXenemy += 2;
-//                this.gameCanvas.positionYenemy += 1;
-//                this.gameCanvas.positionXplayer += 2;
-//                this.gameCanvas.positionYplayer += 2;
-//                this.gameCanvas.repaint();
                 this.gameCanvas.renderAll();
                 this.lastTime = currentTime;
             }

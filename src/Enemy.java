@@ -5,47 +5,50 @@ import java.util.Random;
 public class Enemy {
 
     public BufferedImage image;
-    public int x;
-    public int y;
+    public Vector2D position;
     public int width;
     public int height;
-    public int velocityX;
-    public int velocityY;
-    Random random = new Random();
+    public Vector2D velocity;
+    private Random random;
 
-
-    public Enemy(BufferedImage image, int x, int y, int width, int height, int velocityX, int velocityY) {
+    public Enemy(BufferedImage image, Vector2D position, int width, int height, Vector2D velocity) {
         this.image = image;
-        this.x = x;
-        this.y = y;
+        this.position = position;
         this.width = width;
         this.height = height;
-        this.velocityX = velocityX;
-        this.velocityY = velocityY;
+        this.velocity = velocity;
+        this.random = new Random();
     }
 
-    public void run() {
-        if (this.x + velocityX <= 0) {
-            this.x = 1024;
-            this.y = random.nextInt(600);
-        } else if (this.x + velocityX >= 1024){
-            this.x = 0;
-            this.y = random.nextInt(600);
-        } else {
-            this.x += velocityX;
+    public void run(Vector2D playerPosition){
+        this.velocity = this.chase(playerPosition).multiply(3);
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+        this.backToScreen();
+    }
+
+    public void backToScreen() {
+        if (this.position.x < 0){
+            this.position.set(1024,random.nextInt(600));
         }
-        if (this.y + velocityY <= 0){
-            this.x = random.nextInt(1024);
-            this.y = 600;
-        } else if (this.y + velocityY >= 600){
-            this.x = random.nextInt(1024);
-            this.y = 0;
-        } else {
-            this.y += velocityY;
+        if (this.position.x > 1024){
+            this.position.set(0,random.nextInt(600));
         }
+        if (this.position.y < 0){
+            this.position.set(random.nextInt(1024),600);
+        }
+        if (this.position.y > 600){
+            this.position.set(random.nextInt(1024),0);
+        }
+    }
+
+    public Vector2D chase(Vector2D playerPosition){
+        Vector2D velocitySubtract;
+        velocitySubtract = playerPosition.subtract(this.position);
+        return velocitySubtract.normalize();
     }
 
     public void render(Graphics graphics) {
-        graphics.drawImage(this.image, this.x, this.y, this.width, this.height, null);
+        graphics.drawImage(this.image, (int)this.position.x,(int)this.position.y, this.width, this.height, null);
     }
 }

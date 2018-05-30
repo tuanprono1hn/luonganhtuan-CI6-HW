@@ -10,7 +10,6 @@ import java.util.Random;
 
 public class GameCanvas extends JPanel {
 
-    BufferedImage playerImage;
     BufferedImage backBuffered;
     Graphics graphics;
 
@@ -42,10 +41,12 @@ public class GameCanvas extends JPanel {
     }
 
     private void setupCharacter() {
-        this.background = new Background(0,0, 1024, 600, Color.black);
-        this.createPlayer();
+        this.background = new Background(new Vector2D(0,0), 1024, 600, Color.black);
+//        this.createPlayer();
         this.setupStar();
         this.setupEnemy();
+        this.player = new Player();
+        this.player.position.set(500,300);
     }
 
     private void setupStar() {
@@ -61,13 +62,11 @@ public class GameCanvas extends JPanel {
     }
 
     public void renderAll() {
-//        this.renderBackground();
-//        this.star.render(this.graphics);
 //       lambdas expression
         this.background.render(graphics);
         this.stars.forEach(star -> star.render(graphics));
         this.enemies.forEach(enemy -> enemy.render(graphics));
-        this.player.render(graphics);
+        this.player.render(this.graphics);
         this.repaint();
     }
 
@@ -80,7 +79,8 @@ public class GameCanvas extends JPanel {
         this.createStar();
         this.createEnemy();
         this.stars.forEach(star -> star.run());
-        this.enemies.forEach(enemy -> enemy.run());
+        this.enemies.forEach(enemy -> enemy.run(this.player.position));
+        this.player.run();
     }
 
     private void createPlayer(){
@@ -90,7 +90,7 @@ public class GameCanvas extends JPanel {
 
     private void createStar() {
         if (this.countStar == 30) {
-            Star star = new Star(this.loadImage("resources-rocket/resources/images/star.png"), this.random.nextInt(1024), this.random.nextInt(600), 5, 5, -this.random.nextInt(3) - 1, 0);
+            Star star = new Star(this.loadImage("resources-rocket/resources/images/star.png"), new Vector2D(this.random.nextInt(1024), this.random.nextInt(600)), 5, 5, new Vector2D(-this.random.nextInt(3) - 1, 0));
             this.stars.add(star);
             this.countStar = 0;
         } else {
@@ -110,7 +110,7 @@ public class GameCanvas extends JPanel {
             else dau = 1;
             int velocityY = dau * (this.random.nextInt(4)+1);
 
-            Enemy enemy = new Enemy(this.loadImage("resources-rocket/resources/images/circle.png"), this.random.nextInt(1024), this.random.nextInt(600), 15, 15, velocityX, velocityY);
+            Enemy enemy = new Enemy(this.loadImage("resources-rocket/resources/images/circle.png"), new Vector2D(this.random.nextInt(1024), this.random.nextInt(600)), 15, 15, new Vector2D(velocityX,velocityY));
             this.enemies.add(enemy);
             this.countEnemy = 0;
         } else {
