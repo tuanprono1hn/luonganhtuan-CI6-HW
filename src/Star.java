@@ -9,17 +9,16 @@ public class Star {
     public int width;
     public int height;
 
-    public Star(BufferedImage image, Vector2D position, int width, int height, Vector2D velocity) {
-        this.image = image;
-        this.position = position;
-        this.width = width;
-        this.height = height;
-        this.velocity = velocity;
+    public Star() {
+//        this.image = image;
+        this.position = new Vector2D();
+//        this.width = width;
+//        this.height = height;
+        this.velocity = new Vector2D();
     }
 
     public void run() {
-        this.position.x += this.velocity.x;
-        this.position.y += this.velocity.y;
+        this.position.addUp(this.velocity);
     }
 
     public void render(Graphics graphics) {

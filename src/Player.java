@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Player {
     public Vector2D position;
@@ -13,18 +14,26 @@ public class Player {
     private Random random;
     private List<Vector2D> verties;
     private Polygon polygon;
+    public double angle = 0.0;
+    private PolygonRenderer renderer;
 
     public Player() {
         this.position = new Vector2D();
         this.velocity = new Vector2D();
         this.speed = 4;
         this.random = new Random();
+        this.renderer = new PolygonRenderer(
+                Color.red,
+                new Vector2D(),
+                new Vector2D(0,16),
+                new Vector2D(20,8)
+        );
 //        this.verties = Arrays.asList(
 //                new Vector2D(),
-//                new Vector2D(),
-//                new Vector2D()
+//                new Vector2D(0,16),
+//                new Vector2D(20,8)
 //        );
-        this.polygon = new Polygon();
+//        this.polygon = new Polygon();
     }
 
 //    public void run(String move, int windowX, int windowY){
@@ -64,17 +73,18 @@ public class Player {
 //        this.velocity = (this.velocity.normalize().multiply(speed));
 //        this.velocity = this.velocity.rotate(angle);
         this.position.addUp(this.velocity);
-        this.setVerties();
+//        this.setVerties();
+        this.renderer.angle = this.angle;
         this.backToScreen();
     }
 
-    public void setVerties(){
-        this.verties = Arrays.asList(
-                new Vector2D(this.position.x, this.position.y - 10),
-                new Vector2D(this.position.x, this.position.y + 10),
-                new Vector2D(this.position.x + 20, this.position.y)
-        );
-    }
+//    public void setVerties(){
+//        this.verties = Arrays.asList(
+//                new Vector2D(this.position.x, this.position.y - 10),
+//                new Vector2D(this.position.x, this.position.y + 10),
+//                new Vector2D(this.position.x + 20, this.position.y)
+//        );
+//    }
 
     private void backToScreen(){
         if (this.position.x > 1024){
@@ -92,9 +102,32 @@ public class Player {
     }
 
     public void render(Graphics graphics) {
-        graphics.setColor(Color.red);
-        this.polygon.reset();
-        this.verties.forEach(vertex -> polygon.addPoint((int)vertex.x, (int)vertex.y));
-        graphics.fillPolygon(this.polygon);
+//        graphics.setColor(Color.red);
+//        this.updatePolygon();
+//        graphics.fillPolygon(this.polygon);
+        this.renderer.render(graphics, this.position);
     }
+
+//    public void updatePolygon(){
+//        this.polygon.reset();
+////        Vector2D center = new Vector2D();
+////        this.verties.forEach(vector2D -> center.addUp(vector2D));
+////        center.multiply(1.0f/this.verties.size());
+//
+//        Vector2D center = this.verties
+//                .stream()
+//                .reduce(new Vector2D(), (v1, v2) -> v1.add(v2))
+//                .multiply(1.0f/this.verties.size()).rotate(this.angle);
+//        Vector2D translate = this.position.subtract(center);
+////        List<Vector2D> newverties = new ArrayList<>();
+////        this.verties.forEach(vector2D -> {
+////            Vector2D newPosition = vector2D.add(translate);
+////            newverties.add(newPosition);
+////        });
+////        List<Vector2D> newVerties = this.verties.stream().map(vector2D -> vector2D.add(translate)).collect(Collectors.toList());
+//        this.verties.stream()
+//                .map(vector2D -> vector2D.rotate(angle))
+//                .map(vector2D -> vector2D.add(translate))
+//                .forEach(vertex -> polygon.addPoint((int)vertex.x, (int)vertex.y));
+//    }
 }

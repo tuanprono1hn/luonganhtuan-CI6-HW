@@ -1,31 +1,24 @@
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Enemy {
-
-//    public BufferedImage image;
+public class BulletEnemy {
     private ImageRenderer renderer;
     public Vector2D position;
     public Vector2D velocity;
     private Random random;
-    private EnemyShoot enemyShoot;
 
-    public Enemy() {
+    public BulletEnemy() {
 //        this.image = image;
         this.position = new Vector2D();
         this.velocity = new Vector2D();
         this.random = new Random();
-        this.renderer = new ImageRenderer("resources-rocket/resources/images/circle.png", 20,20);
-        this.enemyShoot = new EnemyShoot();
+        this.renderer = new ImageRenderer("resources-rocket/resources/images/circle.png", 6,6);
     }
 
     public void run(Vector2D playerPosition){
 //        this.velocity = this.chase(playerPosition).multiply(3);
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
-        this.enemyShoot.run(this);
-        this.enemyShoot.bulletEnemies.forEach(bulletEnemy -> bulletEnemy.run());
         this.backToScreen();
     }
 
@@ -44,14 +37,7 @@ public class Enemy {
         }
     }
 
-//    public Vector2D chase(Vector2D playerPosition){
-//        Vector2D velocitySubtract;
-//        velocitySubtract = playerPosition.subtract(this.position);
-//        return velocitySubtract.normalize();
-//    }
-
     public void render(Graphics graphics) {
         this.renderer.render(graphics, this.position);
-        this.enemyShoot.bulletEnemies.forEach(bulletEnemy -> render(graphics));
     }
 }

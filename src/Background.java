@@ -6,15 +6,15 @@ public class Background {
     public int height;
     public Color color;
 
-    public Background(Vector2D position, int width, int height, Color color) {
-        this.position = position;
-        this.width = width;
-        this.height = height;
-        this.color = color;
+    public Background() {
+        this.position = new Vector2D();
+//        this.width = width;
+//        this.height = height;
+//        this.color = color;
     }
 
     public void render(Graphics graphics){
         graphics.setColor(this.color);
-        graphics.fillRect((int)this.position.x, (int)this.position.y, this.width, this.height);
+        graphics.fillRect((int)this.position.x, (int)this.position.y,1024,600);
     }
 }
