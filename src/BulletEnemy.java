@@ -19,7 +19,7 @@ public class BulletEnemy {
 //        this.velocity = this.chase(playerPosition).multiply(3);
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;
-        this.backToScreen();
+//        this.backToScreen();
     }
 
     public void backToScreen() {
