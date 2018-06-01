@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 public class PlayerShoot {
-    private int bulletcount;
+    private int bulletcount1;
 
     public List<BulletPlayer> bulletPlayers;
 
@@ -12,16 +12,16 @@ public class PlayerShoot {
         this.bulletPlayers = new ArrayList<>();
     }
 
-    public void run(Enemy enemy){
+    public void run(Player player){
         //create bullet
         BulletPlayer bulletPlayer = new BulletPlayer();
-        if (this.bulletcount == 10){
-            bulletPlayer.position.set(enemy.position);
-            bulletPlayer.velocity.set(3, 0);
+        if (this.bulletcount1 == 10){
+            bulletPlayer.position.set(player.position);
+            bulletPlayer.velocity.set(5, 0).rotate(player.angle);
             this.bulletPlayers.add(bulletPlayer);
-            this.bulletcount = 0;
+            this.bulletcount1 = 0;
         } else {
-            bulletcount += 1;
+            bulletcount1 += 1;
         }
     }
 }

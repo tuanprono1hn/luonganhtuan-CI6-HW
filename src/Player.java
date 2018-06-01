@@ -32,6 +32,8 @@ public class Player {
         this.position.addUp(this.velocity);
 //        this.setVerties();
         this.renderer.angle = this.angle;
+//        this.playerShoot.run(this);
+//        this.playerShoot.bulletPlayers.forEach(bulletPlayer -> bulletPlayer.run());
         this.backToScreen();
     }
 
@@ -52,6 +54,7 @@ public class Player {
 
     public void render(Graphics graphics) {
         this.renderer.render(graphics, this.position);
+//        this.playerShoot.bulletPlayers.forEach(bulletPlayer -> bulletPlayer.render(graphics));
     }
 
 //    public void updatePolygon(){
