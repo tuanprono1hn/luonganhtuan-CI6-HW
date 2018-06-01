@@ -22,11 +22,10 @@ public class Enemy {
 
     public void run(Vector2D playerPosition){
 //        this.velocity = this.chase(playerPosition).multiply(3);
-        this.position.x += this.velocity.x;
-        this.position.y += this.velocity.y;
+        this.position.addUp(this.velocity);
         this.enemyShoot.run(this);
         this.enemyShoot.bulletEnemies.forEach(bulletEnemy -> bulletEnemy.run());
-        this.backToScreen();
+//        this.backToScreen();
     }
 
     public void backToScreen() {
@@ -52,6 +51,6 @@ public class Enemy {
 
     public void render(Graphics graphics) {
         this.renderer.render(graphics, this.position);
-        this.enemyShoot.bulletEnemies.forEach(bulletEnemy -> render(graphics));
+        this.enemyShoot.bulletEnemies.forEach(bulletEnemy -> bulletEnemy.render(graphics));
     }
 }

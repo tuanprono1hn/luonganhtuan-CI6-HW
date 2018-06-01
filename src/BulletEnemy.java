@@ -15,10 +15,9 @@ public class BulletEnemy {
         this.renderer = new ImageRenderer("resources-rocket/resources/images/circle.png", 6,6);
     }
 
-    public void run(Vector2D playerPosition){
+    public void run(){
 //        this.velocity = this.chase(playerPosition).multiply(3);
-        this.position.x += this.velocity.x;
-        this.position.y += this.velocity.y;
+        this.position.addUp(this.velocity);
 //        this.backToScreen();
     }
 

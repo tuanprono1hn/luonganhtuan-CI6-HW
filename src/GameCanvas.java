@@ -16,23 +16,20 @@ public class GameCanvas extends JPanel {
     Background background;
     List<Star> stars;
     List<Enemy> enemies;
+    public Player player;
     private Random random = new Random();
     private int countStar = 0;
     private int countEnemy = 0;
 
-    Star star;
-    Enemy enemy;
-    Player player;
+//    Star star;
+//    Enemy enemy;
+//    Player player;
 
     public GameCanvas() {
         this.setSize(1024, 600);
-
         this.setupCharacter();
-
         this.setupBackBuffered();
-
         this.setVisible(true);
-
     }
 
     private void setupBackBuffered() {
@@ -42,7 +39,7 @@ public class GameCanvas extends JPanel {
 
     private void setupCharacter() {
         this.background = new Background();
-        this.background.color = Color.black;
+//        this.background.color = Color.black;
         this.createPlayer();
         this.setupStar();
         this.setupEnemy();
@@ -62,7 +59,7 @@ public class GameCanvas extends JPanel {
 
     public void renderAll() {
 //       lambdas expression
-        this.background.render(graphics);
+        this.background.render(this.graphics);
         this.stars.forEach(star -> star.render(graphics));
         this.enemies.forEach(enemy -> enemy.render(graphics));
         this.player.render(this.graphics);
@@ -78,7 +75,7 @@ public class GameCanvas extends JPanel {
         this.createStar();
         this.createEnemy();
         this.enemies.forEach(enemy -> {
-            Vector2D velocity = player.position.subtract(enemy.position).normalize().multiply(3);
+            Vector2D velocity = player.position.subtract(enemy.position).normalize().multiply(2);
             enemy.velocity.set(velocity);
         });
         this.stars.forEach(star -> star.run());
@@ -109,7 +106,7 @@ public class GameCanvas extends JPanel {
     }
 
     private void createEnemy() {
-        if (this.countEnemy == 50) {
+        if (this.countEnemy == 200) {
 //            int dau = this.random.nextInt(2);
 //            if (dau == 0) dau = -1;
 //            else dau = 1;

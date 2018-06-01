@@ -9,18 +9,16 @@ import java.util.stream.Collectors;
 public class Player {
     public Vector2D position;
     public Vector2D velocity;
-//    public double angle;
-    public float speed;
     private Random random;
-    private List<Vector2D> verties;
-    private Polygon polygon;
+//    private List<Vector2D> verties;
+//    private Polygon polygon;
     public double angle = 0.0;
     private PolygonRenderer renderer;
+    private PlayerShoot playerShoot;
 
     public Player() {
         this.position = new Vector2D();
         this.velocity = new Vector2D();
-        this.speed = 4;
         this.random = new Random();
         this.renderer = new PolygonRenderer(
                 Color.red,
@@ -28,63 +26,14 @@ public class Player {
                 new Vector2D(0,16),
                 new Vector2D(20,8)
         );
-//        this.verties = Arrays.asList(
-//                new Vector2D(),
-//                new Vector2D(0,16),
-//                new Vector2D(20,8)
-//        );
-//        this.polygon = new Polygon();
     }
 
-//    public void run(String move, int windowX, int windowY){
-//        int dX = 0;
-//        int dY = 0;
-//        if (move.equalsIgnoreCase("left")) {
-//            dX -= this.velocityX;
-//        } else if (move.equalsIgnoreCase("right")){
-//            dX += this.velocityX;
-//        }
-//        if (move.equalsIgnoreCase("up")){
-//            dY -= this.velocityY;
-//        } else if (move.equalsIgnoreCase("down")){
-//            dY += this.velocityY;
-//        }
-//        if (this.x + dX <=0) {
-//            this.x = windowX;
-//            this.y = random.nextInt(windowY);
-//        } else if (this.x + dX >= windowX){
-//            this.x = 0;
-//            this.y = random.nextInt(windowY);
-//        } else {
-//            this.x += dX;
-//        }
-//        if (this.y + dY <= 0){
-//            this.x = random.nextInt(windowX);
-//            this.y = windowY;
-//        } else if (this.y + dY>= windowY){
-//            this.x = random.nextInt(windowX);
-//            this.y = 0;
-//        } else {
-//            this.y += dY;
-//        }
-//    }
-
     public void run(){
-//        this.velocity = (this.velocity.normalize().multiply(speed));
-//        this.velocity = this.velocity.rotate(angle);
         this.position.addUp(this.velocity);
 //        this.setVerties();
         this.renderer.angle = this.angle;
         this.backToScreen();
     }
-
-//    public void setVerties(){
-//        this.verties = Arrays.asList(
-//                new Vector2D(this.position.x, this.position.y - 10),
-//                new Vector2D(this.position.x, this.position.y + 10),
-//                new Vector2D(this.position.x + 20, this.position.y)
-//        );
-//    }
 
     private void backToScreen(){
         if (this.position.x > 1024){
@@ -102,9 +51,6 @@ public class Player {
     }
 
     public void render(Graphics graphics) {
-//        graphics.setColor(Color.red);
-//        this.updatePolygon();
-//        graphics.fillPolygon(this.polygon);
         this.renderer.render(graphics, this.position);
     }
 

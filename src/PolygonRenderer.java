@@ -20,21 +20,12 @@ public class PolygonRenderer {
     }
     public void updatePolygon(Vector2D position){
         this.polygon.reset();
-//        Vector2D center = new Vector2D();
-//        this.verties.forEach(vector2D -> center.addUp(vector2D));
-//        center.multiply(1.0f/this.verties.size());
 
         Vector2D center = this.verties
                 .stream()
                 .reduce(new Vector2D(), (v1, v2) -> v1.add(v2))
                 .multiply(1.0f/this.verties.size()).rotate(this.angle);
         Vector2D translate = position.subtract(center);
-//        List<Vector2D> newverties = new ArrayList<>();
-//        this.verties.forEach(vector2D -> {
-//            Vector2D newPosition = vector2D.add(translate);
-//            newverties.add(newPosition);
-//        });
-//        List<Vector2D> newVerties = this.verties.stream().map(vector2D -> vector2D.add(translate)).collect(Collectors.toList());
         this.verties.stream()
                 .map(vector2D -> vector2D.rotate(angle))
                 .map(vector2D -> vector2D.add(translate))
