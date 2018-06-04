@@ -4,15 +4,13 @@ import java.util.Random;
 
 public class Enemy {
 
-//    public BufferedImage image;
-    private ImageRenderer renderer;
+    private Renderer renderer;
     public Vector2D position;
     public Vector2D velocity;
     private Random random;
     private EnemyShoot enemyShoot;
 
     public Enemy() {
-//        this.image = image;
         this.position = new Vector2D();
         this.velocity = new Vector2D();
         this.random = new Random();

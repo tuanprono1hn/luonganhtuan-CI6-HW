@@ -1,27 +1,28 @@
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class PlayerShoot {
-    private int bulletcount1;
 
-    public List<BulletPlayer> bulletPlayers;
+    private int bullet = 0;
 
-    public PlayerShoot(){
+    public List<Bullet> bulletPlayers;
+
+    public PlayerShoot() {
         this.bulletPlayers = new ArrayList<>();
     }
 
     public void run(Player player){
-        //create bullet
-        BulletPlayer bulletPlayer = new BulletPlayer();
-        if (this.bulletcount1 == 10){
+        Bullet bulletPlayer = new Bullet();
+        if (this.bullet == 20){
             bulletPlayer.position.set(player.position);
-            bulletPlayer.velocity.set(5, 0).rotate(player.angle);
+
+            Vector2D rotate = player.playerMove.velocity.add(new Vector2D(2,0).rotate(player.playerMove.angle));
+
+            bulletPlayer.velocity.set(rotate);
             this.bulletPlayers.add(bulletPlayer);
-            this.bulletcount1 = 0;
+            this.bullet = 0;
         } else {
-            bulletcount1 += 1;
+            bullet += 1;
         }
     }
 }

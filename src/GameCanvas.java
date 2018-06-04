@@ -86,18 +86,15 @@ public class GameCanvas extends JPanel {
     private void createPlayer(){
         this.player = new Player();
         this.player.position.set(500,300);
-        this.player.velocity.set(4,0);
+        this.player.playerMove.velocity.set(4,0);
     }
 
     private void createStar() {
         if (this.countStar == 30) {
 //            Star star = new Star(this.loadImage("resources-rocket/resources/images/star.png"), new Vector2D(this.random.nextInt(1024), this.random.nextInt(600)), 5, 5, new Vector2D(-this.random.nextInt(3) - 1, 0));
             Star star = new Star();
-            star.image = this.loadImage("resources-rocket/resources/images/star.png");
             star.position.set(this.random.nextInt(1024), this.random.nextInt(600));
             star.velocity.set(-this.random.nextInt(3)+1,0);
-            star.width = 5;
-            star.height = 5;
             this.stars.add(star);
             this.countStar = 0;
         } else {

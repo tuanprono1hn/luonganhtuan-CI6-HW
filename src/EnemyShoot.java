@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnemyShoot {
-    private int bulletcount;
+    private int bulletcount = 0;
 
-    public List<BulletEnemy> bulletEnemies;
+    public List<Bullet> bulletEnemies;
 
     public EnemyShoot(){
         this.bulletEnemies = new ArrayList<>();
@@ -12,7 +12,7 @@ public class EnemyShoot {
 
     public void run(Enemy enemy){
         //create bullet
-        BulletEnemy bulletEnemy = new BulletEnemy();
+        Bullet bulletEnemy = new Bullet();
         if (this.bulletcount == 30){
             bulletEnemy.position.set(enemy.position);
             bulletEnemy.velocity.set(3, 0);
