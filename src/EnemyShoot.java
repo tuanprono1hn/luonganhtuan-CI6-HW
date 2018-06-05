@@ -12,14 +12,16 @@ public class EnemyShoot {
 
     public void run(Enemy enemy){
         //create bullet
-        Bullet bulletEnemy = new Bullet();
-        if (this.bulletcount == 30){
-            bulletEnemy.position.set(enemy.position);
-            bulletEnemy.velocity.set(3, 0);
-            this.bulletEnemies.add(bulletEnemy);
-            this.bulletcount = 0;
-        } else {
-            bulletcount += 1;
+        for (double angle = 0.0; angle <= 360; angle += 15.0) {
+            Bullet bulletEnemy = new Bullet();
+            if (this.bulletcount == 50) {
+                bulletEnemy.position.set(enemy.position);
+                bulletEnemy.velocity.set((new Vector2D(3,0)).rotate(angle));
+                this.bulletEnemies.add(bulletEnemy);
+                this.bulletcount = 0;
+            } else {
+                bulletcount += 1;
+            }
         }
     }
 

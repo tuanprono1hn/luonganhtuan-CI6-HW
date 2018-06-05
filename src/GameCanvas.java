@@ -15,11 +15,10 @@ public class GameCanvas extends JPanel {
 
     Background background;
     List<Star> stars;
-    List<Enemy> enemies;
     public Player player;
     private Random random = new Random();
-    private int countStar = 0;
-    private int countEnemy = 0;
+    private EnemySpawner enemySpawner = new EnemySpawner();
+    private FrameCounter frameCounter = new FrameCounter(30);
 
 //    Star star;
 //    Enemy enemy;
@@ -39,18 +38,17 @@ public class GameCanvas extends JPanel {
 
     private void setupCharacter() {
         this.background = new Background();
-//        this.background.color = Color.black;
         this.createPlayer();
         this.setupStar();
-        this.setupEnemy();
+//        this.setupEnemy();
     }
 
     private void setupStar() {
         this.stars = new ArrayList<>();
     }
-    private void setupEnemy() {
-        this.enemies = new ArrayList<>();
-    }
+//    private void setupEnemy() {
+//        this.enemies = new ArrayList<>();
+//    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -61,25 +59,20 @@ public class GameCanvas extends JPanel {
 //       lambdas expression
         this.background.render(this.graphics);
         this.stars.forEach(star -> star.render(graphics));
-        this.enemies.forEach(enemy -> enemy.render(graphics));
         this.player.render(this.graphics);
+        this.enemySpawner.enemies.forEach(enemy -> enemy.render(graphics));
         this.repaint();
-    }
-
-    private void renderBackground() {
-        this.graphics.setColor(Color.black);
-        this.graphics.fillRect(0,0,1024,600);
     }
 
     public void runAll () {
         this.createStar();
-        this.createEnemy();
-        this.enemies.forEach(enemy -> {
+//        this.createEnemy();
+        this.enemySpawner.enemies.forEach(enemy -> {
             Vector2D velocity = player.position.subtract(enemy.position).normalize().multiply(2);
             enemy.velocity.set(velocity);
         });
         this.stars.forEach(star -> star.run());
-        this.enemies.forEach(enemy -> enemy.run(this.player.position));
+        this.enemySpawner.run();
         this.player.run();
     }
 
@@ -90,46 +83,12 @@ public class GameCanvas extends JPanel {
     }
 
     private void createStar() {
-        if (this.countStar == 30) {
-//            Star star = new Star(this.loadImage("resources-rocket/resources/images/star.png"), new Vector2D(this.random.nextInt(1024), this.random.nextInt(600)), 5, 5, new Vector2D(-this.random.nextInt(3) - 1, 0));
+        if (this.frameCounter.run()) {
             Star star = new Star();
             star.position.set(this.random.nextInt(1024), this.random.nextInt(600));
             star.velocity.set(-this.random.nextInt(3)+1,0);
             this.stars.add(star);
-            this.countStar = 0;
-        } else {
-            this.countStar += 1;
-        }
-    }
-
-    private void createEnemy() {
-        if (this.countEnemy == 200) {
-//            int dau = this.random.nextInt(2);
-//            if (dau == 0) dau = -1;
-//            else dau = 1;
-//            int velocityX = dau * (this.random.nextInt(4)+1);
-//
-//            dau = this.random.nextInt(2);
-//            if (dau == 0) dau = -1;
-//            else dau = 1;
-//            int velocityY = dau * (this.random.nextInt(4)+1);
-
-//            Enemy enemy = new Enemy(this.loadImage("resources-rocket/resources/images/circle.png"), new Vector2D(this.random.nextInt(1024), this.random.nextInt(600)), 15, 15, new Vector2D(velocityX,velocityY));
-            Enemy enemy = new Enemy();
-            enemy.position.set(this.random.nextInt(1024), this.random.nextInt(600));
-            this.enemies.add(enemy);
-            this.countEnemy = 0;
-        } else {
-            this.countEnemy += 1;
-        }
-    }
-
-    private BufferedImage loadImage(String path) {
-        try {
-            return ImageIO.read(new File(path));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            this.frameCounter.reset();
         }
     }
 }

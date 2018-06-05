@@ -18,7 +18,7 @@ public class Enemy {
         this.enemyShoot = new EnemyShoot();
     }
 
-    public void run(Vector2D playerPosition){
+    public void run(){
 //        this.velocity = this.chase(playerPosition).multiply(3);
         this.position.addUp(this.velocity);
         this.enemyShoot.run(this);
