@@ -1,42 +1,20 @@
 import java.awt.*;
 import java.util.Random;
 
-public class Bullet {
-    private Renderer renderer;
-    public Vector2D position;
+public class Bullet extends GameObject{
     public Vector2D velocity;
     private Random random;
 
     public Bullet() {
-//        this.image = image;
-        this.position = new Vector2D();
         this.velocity = new Vector2D();
         this.random = new Random();
         this.renderer = new ImageRenderer("resources-rocket/resources/images/circle.png", 6,6);
     }
 
+    @Override
     public void run(){
-//        this.velocity = this.chase(playerPosition).multiply(3);
+        super.run();
         this.position.addUp(this.velocity);
-//        this.backToScreen();
     }
 
-    public void backToScreen() {
-        if (this.position.x < 0){
-            this.position.set(1024,random.nextInt(600));
-        }
-        if (this.position.x > 1024){
-            this.position.set(0,random.nextInt(600));
-        }
-        if (this.position.y < 0){
-            this.position.set(random.nextInt(1024),600);
-        }
-        if (this.position.y > 600){
-            this.position.set(random.nextInt(1024),0);
-        }
-    }
-
-    public void render(Graphics graphics) {
-        this.renderer.render(graphics, this.position);
-    }
 }

@@ -1,23 +1,17 @@
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Star {
+public class Star extends GameObject{
 
-    public Vector2D position;
     public Vector2D velocity;
-    public Renderer renderer;
 
     public Star() {
-        this.position = new Vector2D();
         this.velocity = new Vector2D();
         this.renderer = new ImageRenderer("resources-rocket/resources/images/star.png", 5, 5);
     }
-
+    @Override
     public void run() {
+        super.run();
         this.position.addUp(this.velocity);
-    }
-
-    public void render(Graphics graphics) {
-        this.renderer.render(graphics, this.position);
     }
 }

@@ -14,11 +14,10 @@ public class GameCanvas extends JPanel {
     Graphics graphics;
 
     Background background;
-    List<Star> stars;
     public Player player;
     private Random random = new Random();
     private EnemySpawner enemySpawner = new EnemySpawner();
-    private FrameCounter frameCounter = new FrameCounter(30);
+    private StarSpawner starSpawner = new StarSpawner();
 
 //    Star star;
 //    Enemy enemy;
@@ -39,13 +38,13 @@ public class GameCanvas extends JPanel {
     private void setupCharacter() {
         this.background = new Background();
         this.createPlayer();
-        this.setupStar();
+//        this.setupStar();
 //        this.setupEnemy();
     }
 
-    private void setupStar() {
-        this.stars = new ArrayList<>();
-    }
+//    private void setupStar() {
+//        this.stars = new ArrayList<>();
+//    }
 //    private void setupEnemy() {
 //        this.enemies = new ArrayList<>();
 //    }
@@ -58,20 +57,21 @@ public class GameCanvas extends JPanel {
     public void renderAll() {
 //       lambdas expression
         this.background.render(this.graphics);
-        this.stars.forEach(star -> star.render(graphics));
+        this.starSpawner.stars.forEach(star -> star.render(graphics));
         this.player.render(this.graphics);
         this.enemySpawner.enemies.forEach(enemy -> enemy.render(graphics));
         this.repaint();
     }
 
     public void runAll () {
-        this.createStar();
+//        this.createStar();
 //        this.createEnemy();
+        this.starSpawner.run();
         this.enemySpawner.enemies.forEach(enemy -> {
             Vector2D velocity = player.position.subtract(enemy.position).normalize().multiply(2);
             enemy.velocity.set(velocity);
         });
-        this.stars.forEach(star -> star.run());
+        this.starSpawner.stars.forEach(star -> star.run());
         this.enemySpawner.run();
         this.player.run();
     }
@@ -82,13 +82,4 @@ public class GameCanvas extends JPanel {
         this.player.playerMove.velocity.set(4,0);
     }
 
-    private void createStar() {
-        if (this.frameCounter.run()) {
-            Star star = new Star();
-            star.position.set(this.random.nextInt(1024), this.random.nextInt(600));
-            star.velocity.set(-this.random.nextInt(3)+1,0);
-            this.stars.add(star);
-            this.frameCounter.reset();
-        }
-    }
 }

@@ -14,7 +14,7 @@ public class EnemyShoot {
         //create bullet
         for (double angle = 0.0; angle <= 360; angle += 15.0) {
             Bullet bulletEnemy = new Bullet();
-            if (this.bulletcount == 50) {
+            if (this.bulletcount == 100) {
                 bulletEnemy.position.set(enemy.position);
                 bulletEnemy.velocity.set((new Vector2D(3,0)).rotate(angle));
                 this.bulletEnemies.add(bulletEnemy);
