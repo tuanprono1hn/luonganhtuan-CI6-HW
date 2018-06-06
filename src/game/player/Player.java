@@ -1,14 +1,12 @@
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.List;
-import java.util.stream.Collectors;
+package game.player;
 
-public class Player {
-    public Vector2D position;
-    private Renderer renderer;
+import base.GameObject;
+import base.Vector2D;
+import renderer.PolygonRenderer;
+
+import java.awt.*;
+
+public class Player extends GameObject {
     public PlayerMove playerMove;
     public PlayerShoot playerShoot;
 
@@ -23,36 +21,37 @@ public class Player {
         this.playerMove = new PlayerMove();
         this.playerShoot = new PlayerShoot();
     }
-
+    @Override
     public void run(){
+        super.run();
         this.playerMove.run(this);
         this.playerShoot.run(this);
-        this.playerShoot.bulletPlayers.forEach(bulletPlayer -> bulletPlayer.run());
+//        this.playerShoot.bulletPlayers.forEach(bulletPlayer -> bulletPlayer.run());
         ((PolygonRenderer)this.renderer).angle = this.playerMove.angle;
     }
 
     public void render(Graphics graphics) {
-        this.renderer.render(graphics, this.position);
-        this.playerShoot.bulletPlayers.forEach(bulletPlayer -> bulletPlayer.render(graphics));
+        super.render(graphics);
+//        this.playerShoot.bulletPlayers.forEach(bulletPlayer -> bulletPlayer.render(graphics));
     }
 
 //    public void updatePolygon(){
 //        this.polygon.reset();
-////        Vector2D center = new Vector2D();
+////        base.Vector2D center = new base.Vector2D();
 ////        this.verties.forEach(vector2D -> center.addUp(vector2D));
 ////        center.multiply(1.0f/this.verties.size());
 //
-//        Vector2D center = this.verties
+//        base.Vector2D center = this.verties
 //                .stream()
-//                .reduce(new Vector2D(), (v1, v2) -> v1.add(v2))
+//                .reduce(new base.Vector2D(), (v1, v2) -> v1.add(v2))
 //                .multiply(1.0f/this.verties.size()).rotate(this.angle);
-//        Vector2D translate = this.position.subtract(center);
-////        List<Vector2D> newverties = new ArrayList<>();
+//        base.Vector2D translate = this.position.subtract(center);
+////        List<base.Vector2D> newverties = new ArrayList<>();
 ////        this.verties.forEach(vector2D -> {
-////            Vector2D newPosition = vector2D.add(translate);
+////            base.Vector2D newPosition = vector2D.add(translate);
 ////            newverties.add(newPosition);
 ////        });
-////        List<Vector2D> newVerties = this.verties.stream().map(vector2D -> vector2D.add(translate)).collect(Collectors.toList());
+////        List<base.Vector2D> newVerties = this.verties.stream().map(vector2D -> vector2D.add(translate)).collect(Collectors.toList());
 //        this.verties.stream()
 //                .map(vector2D -> vector2D.rotate(angle))
 //                .map(vector2D -> vector2D.add(translate))

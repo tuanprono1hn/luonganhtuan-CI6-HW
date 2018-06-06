@@ -1,6 +1,12 @@
+package game.background;
+
+import base.GameObject;
+import base.Vector2D;
+import renderer.BackgroundRenderer;
+
 import java.awt.*;
 
-public class Background extends GameObject{
+public class Background extends GameObject {
 
     public Background() {
         this.position = new Vector2D();

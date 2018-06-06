@@ -1,7 +1,10 @@
-import java.awt.*;
-import java.awt.image.BufferedImage;
+package game.star;
 
-public class Star extends GameObject{
+import base.GameObject;
+import base.Vector2D;
+import renderer.ImageRenderer;
+
+public class Star extends GameObject {
 
     public Vector2D velocity;
 

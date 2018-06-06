@@ -1,6 +1,6 @@
+import input.KeyboardInput;
+
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -27,41 +27,42 @@ public class GameWindow extends JFrame {
     }
 
     private void keyboardEvent() {
-        this.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                    gameCanvas.player.playerMove.angle -= 5.0;
-                }
-                if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                    gameCanvas.player.playerMove.angle += 5.0;
-                }
-
-                Vector2D rotate = (new Vector2D(3.5f,0)).rotate(gameCanvas.player.playerMove.angle);
-                gameCanvas.player.playerMove.velocity.set(rotate);
-                if (e.getKeyCode() == KeyEvent.VK_UP) {
-                    Vector2D boost = (new Vector2D(5,0)).rotate((gameCanvas.player.playerMove.angle));
-                    gameCanvas.player.playerMove.velocity.set(boost);
-                }
-//                else {
-//                    Vector2D rotate = (new Vector2D(3.5f,0)).rotate(gameCanvas.player.angle);
-//                    gameCanvas.player.velocity.set(rotate);
+        this.addKeyListener(KeyboardInput.instance);
+//        this.addKeyListener(new KeyListener() {
+//            @Override
+//            public void keyTyped(KeyEvent e) {
+//
+//            }
+//
+//            @Override
+//            public void keyPressed(KeyEvent e) {
+//                if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+//                    gameCanvas.player.playerMove.angle -= 5.0;
 //                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_UP){
-                    Vector2D rotate = (new Vector2D(3.5f,0)).rotate(gameCanvas.player.playerMove.angle);
-                    gameCanvas.player.playerMove.velocity.set(rotate);
-                }
-            }
-        });
+//                if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+//                    gameCanvas.player.playerMove.angle += 5.0;
+//                }
+//
+//                base.Vector2D rotate = (new base.Vector2D(3.5f,0)).rotate(gameCanvas.player.playerMove.angle);
+//                gameCanvas.player.playerMove.velocity.set(rotate);
+//                if (e.getKeyCode() == KeyEvent.VK_UP) {
+//                    base.Vector2D boost = (new base.Vector2D(5,0)).rotate((gameCanvas.player.playerMove.angle));
+//                    gameCanvas.player.playerMove.velocity.set(boost);
+//                }
+////                else {
+////                    base.Vector2D rotate = (new base.Vector2D(3.5f,0)).rotate(gameCanvas.player.angle);
+////                    gameCanvas.player.velocity.set(rotate);
+////                }
+//            }
+//
+//            @Override
+//            public void keyReleased(KeyEvent e) {
+//                if (e.getKeyCode() == KeyEvent.VK_UP){
+//                    base.Vector2D rotate = (new base.Vector2D(3.5f,0)).rotate(gameCanvas.player.playerMove.angle);
+//                    gameCanvas.player.playerMove.velocity.set(rotate);
+//                }
+//            }
+//        });
     }
 
     private void windowEvent() {
