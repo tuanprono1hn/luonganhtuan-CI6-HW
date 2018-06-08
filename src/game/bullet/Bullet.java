@@ -8,6 +8,7 @@ import physic.BoxCollider;
 import renderer.ImageRenderer;
 
 import java.awt.*;
+import java.sql.SQLOutput;
 import java.util.Random;
 
 public class Bullet extends GameObject {
@@ -27,7 +28,9 @@ public class Bullet extends GameObject {
         this.boxCollider.position.set(this.position.x - 3, this.position.y - 3);
         Enemy enemy = GameObjectManager.instance.checkCollision(this);
         if (enemy != null){
-            enemy.isAlive = true;
+            enemy.isAlive = false;
+            this.isAlive = false;
+            System.out.println("hit");
         }
     }
 }

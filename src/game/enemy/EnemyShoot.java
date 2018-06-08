@@ -17,12 +17,12 @@ public class EnemyShoot {
         //create bullet
 //        for (double angle = 0.0; angle <= 360; angle += 15.0) {
 //            Bullet bulletEnemy = new Bullet();
-//            if (this.frameCounter.run()) {
+            if (this.frameCounter.run()) {
 //                bulletEnemy.position.set(enemy.position);
 //                bulletEnemy.velocity.set((new Vector2D(3,0)).rotate(angle));
 //                GameObjectManager.instance.add(bulletEnemy);
-//                this.frameCounter.reset();
-//            }
+                this.frameCounter.reset();
+            }
 //        }
     }
 
