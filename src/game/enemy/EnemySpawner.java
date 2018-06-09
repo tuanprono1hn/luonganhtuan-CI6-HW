@@ -20,9 +20,10 @@ public class EnemySpawner extends GameObject {
         super.run();
         if (this.frameCounter.run()){
             //tao enemy
-            Enemy enemy = new Enemy();
+//            Enemy enemy = new Enemy();
+            Enemy enemy = GameObjectManager.instance.recycle(Enemy.class);
             enemy.position.set(this.random.nextInt(1024), this.random.nextInt(600));
-            GameObjectManager.instance.add(enemy);
+//            GameObjectManager.instance.add(enemy);
             this.frameCounter.reset();
         }
     }

@@ -22,7 +22,7 @@ public class StarSpawner extends GameObject {
         if (this.frameCounter.run()){
             Star star = new Star();
             star.position.set(this.random.nextInt(1024), this.random.nextInt(600));
-            star.velocity.set(-this.random.nextInt(3)+1,0);
+            star.velocity.set(-1,0);
             GameObjectManager.instance.add(star);
             this.frameCounter.reset();
         }

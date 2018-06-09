@@ -3,13 +3,15 @@ package game.enemy;
 import base.GameObject;
 import base.GameObjectManager;
 import base.Vector2D;
+import game.bullet.Bullet;
 import game.player.Player;
 import physic.BoxCollider;
+import physic.PhisicBody;
 import renderer.ImageRenderer;
 
 import java.util.Random;
 
-public class Enemy extends GameObject {
+public class Enemy extends GameObject implements PhisicBody {
 
     public Vector2D velocity;
     private EnemyShoot enemyShoot;
@@ -33,6 +35,18 @@ public class Enemy extends GameObject {
             this.velocity.set(player.position.subtract(this.position).normalize().multiply(3));
         }
 //        this.enemyShoot.bulletEnemies.forEach(bulletEnemy -> bulletEnemy.run());
+    }
+
+    @Override
+    public void getHit(GameObject gameObject){
+        if (gameObject instanceof Bullet){
+            this.isAlive = false;
+        }
+    }
+
+    @Override
+    public BoxCollider getBoxCollider() {
+        return this.boxCollider;
     }
 
     //    public void run(){
