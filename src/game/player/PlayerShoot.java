@@ -3,41 +3,31 @@ package game.player;
 import base.FrameCounter;
 import base.GameObjectManager;
 import base.Vector2D;
-import game.bullet.Bullet;
+//import game.bullet.Bullet;
 import input.KeyboardInput;
 
 public class PlayerShoot {
 
     private FrameCounter frameCounter;
+    public Shoot shoot;
+    public SingleShoot singleShoot;
+//    public TripleShoot tripleShoot;
 
 
     public PlayerShoot() {
         this.frameCounter = new FrameCounter(10);
+//        this.tripleShoot = new TripleShoot();
+        this.singleShoot = new SingleShoot();
+//        this.shoot = this.tripleShoot;
+        this.shoot = this.singleShoot;
     }
 
     public void run(Player player){
-        Bullet bulletPlayer = new Bullet();
         if (KeyboardInput.instance.spacePressed){
 //            if (this.frameCounter.run()){
-                bulletPlayer.position.set(player.position);
-
-                Vector2D rotate = player.playerMove.velocity.add(
-                        new Vector2D(2,0).rotate(player.playerMove.angle));
-
-                bulletPlayer.velocity.set(rotate);
-                GameObjectManager.instance.add(bulletPlayer);
-//                this.frameCounter.reset();
-            }
+                this.shoot.shoot(player);
+                this.frameCounter.reset();
+//            }
         }
-//        if (this.frameCounter.run()){
-//            bulletPlayer.position.set(player.position);
-//
-//            Vector2D rotate = player.playerMove.velocity.add(
-//                    new Vector2D(2,0).rotate(player.playerMove.angle));
-//
-//            bulletPlayer.velocity.set(rotate);
-//            GameObjectManager.instance.add(bulletPlayer);
-//            this.frameCounter.reset();
-//        }
-//    }
+    }
 }

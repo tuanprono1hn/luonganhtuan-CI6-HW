@@ -18,18 +18,16 @@ public class Smoke extends GameObject {
     @Override
     public void run(){
         super.run();
-        if (this.frameCounter.run()){
-            this.position.subtractBy(this.velocity);
-            ImageRenderer imageRenderer = (ImageRenderer) this.renderer;
-            if (imageRenderer != null){
-                imageRenderer.width -= 1;
-                imageRenderer.height -= 1;
-                if (imageRenderer.width == 0 || imageRenderer.height == 0){
-                    this.isAlive = false;
-                }
+        this.position.subtractBy(this.velocity);
+        if (this.frameCounter.run()) return;
+        ImageRenderer imageRenderer = (ImageRenderer) this.renderer;
+        if (imageRenderer != null){
+            imageRenderer.width -= 1;
+            imageRenderer.height -= 1;
+            if (imageRenderer.width == 0 || imageRenderer.height == 0){
+                this.isAlive = false;
             }
-            this.frameCounter.reset();
         }
-
+        this.frameCounter.reset();
     }
 }

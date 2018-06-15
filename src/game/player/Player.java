@@ -4,15 +4,23 @@ import base.FrameCounter;
 import base.GameObject;
 import base.GameObjectManager;
 import base.Vector2D;
+import game.bullet.BulletEnemy;
+import game.bullet.BulletPlayer;
 import game.effect.Smoke;
+import game.enemy.Enemy;
+import physic.BoxCollider;
+import physic.PhisicBody;
+import physic.RunHitObject;
 import renderer.ImageRenderer;
 import renderer.PolygonRenderer;
 
 import java.awt.*;
 
-public class Player extends GameObject {
+public class Player extends GameObject implements PhisicBody {
     public PlayerMove playerMove;
     public PlayerShoot playerShoot;
+    private RunHitObject runHitObject;
+    public BoxCollider boxCollider;
     private FrameCounter frameCounter = new FrameCounter(10);
 
     public Player() {
@@ -25,13 +33,16 @@ public class Player extends GameObject {
         );
         this.playerMove = new PlayerMove();
         this.playerShoot = new PlayerShoot();
+        this.boxCollider = new BoxCollider(20,20);
+        this.runHitObject = new RunHitObject(Enemy.class, BulletEnemy.class);
     }
     @Override
     public void run(){
         super.run();
+        this.boxCollider.position.set(this.position.x -10, this.position.y - 10);
+        this.runHitObject.run(this);
         this.playerMove.run(this);
         this.playerShoot.run(this);
-//        this.playerShoot.bulletPlayers.forEach(bulletPlayer -> bulletPlayer.run());
         ((PolygonRenderer)this.renderer).angle = this.playerMove.angle;
         this.createSmoke();
     }
@@ -39,7 +50,7 @@ public class Player extends GameObject {
     private void createSmoke (){
         if (this.frameCounter.run()){
             Smoke smoke = GameObjectManager.instance.recycle(Smoke.class);
-            smoke.renderer = new ImageRenderer("resources-rocket/resources/images/circle.png",12,12, Color.white);
+            smoke.renderer = new ImageRenderer("resources-rocket/resources/images/circle.png",12,12, Color.lightGray);
             smoke.position.set(position);
 
             Vector2D rotate = this.playerMove.velocity.add(
@@ -49,31 +60,19 @@ public class Player extends GameObject {
             this.frameCounter.reset();
         }
     }
-    public void render(Graphics graphics) {
-        super.render(graphics);
-//        this.playerShoot.bulletPlayers.forEach(bulletPlayer -> bulletPlayer.render(graphics));
+
+    @Override
+    public BoxCollider getBoxCollider() {
+        return this.boxCollider;
     }
 
-//    public void updatePolygon(){
-//        this.polygon.reset();
-////        base.Vector2D center = new base.Vector2D();
-////        this.verties.forEach(vector2D -> center.addUp(vector2D));
-////        center.multiply(1.0f/this.verties.size());
-//
-//        base.Vector2D center = this.verties
-//                .stream()
-//                .reduce(new base.Vector2D(), (v1, v2) -> v1.add(v2))
-//                .multiply(1.0f/this.verties.size()).rotate(this.angle);
-//        base.Vector2D translate = this.position.subtract(center);
-////        List<base.Vector2D> newverties = new ArrayList<>();
-////        this.verties.forEach(vector2D -> {
-////            base.Vector2D newPosition = vector2D.add(translate);
-////            newverties.add(newPosition);
-////        });
-////        List<base.Vector2D> newVerties = this.verties.stream().map(vector2D -> vector2D.add(translate)).collect(Collectors.toList());
-//        this.verties.stream()
-//                .map(vector2D -> vector2D.rotate(angle))
-//                .map(vector2D -> vector2D.add(translate))
-//                .forEach(vertex -> polygon.addPoint((int)vertex.x, (int)vertex.y));
-//    }
+    @Override
+    public void getHit(GameObject gameObject) {
+        if (gameObject instanceof BulletEnemy || gameObject instanceof BulletEnemy) {
+            this.isAlive = false;
+        }
+    }
+    public void render(Graphics graphics) {
+        super.render(graphics);
+    }
 }

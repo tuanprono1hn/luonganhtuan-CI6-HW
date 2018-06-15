@@ -47,16 +47,6 @@ public class GameCanvas extends JPanel {
     }
 
     public void runAll () {
-////        this.createStar();
-////        this.createEnemy();
-//        this.starSpawner.run();
-//        this.enemySpawner.enemies.forEach(enemy -> {
-//            base.Vector2D velocity = player.position.subtract(enemy.position).normalize().multiply(2);
-//            enemy.velocity.set(velocity);
-//        });
-//        this.starSpawner.stars.forEach(star -> star.run());
-//        this.enemySpawner.run();
-//        this.player.run();
         GameObjectManager.instance.runAll();
         KeyboardInput.instance.reset();
     }

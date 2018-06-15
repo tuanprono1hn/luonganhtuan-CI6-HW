@@ -1,6 +1,6 @@
 package base;
 
-import game.bullet.Bullet;
+//import game.bullet.Bullet;
 import game.enemy.Enemy;
 import game.player.Player;
 import physic.BoxCollider;
@@ -30,15 +30,19 @@ public class GameObjectManager {
     }
 
     public void runAll(){
-
-        this.list.forEach(gameObject -> gameObject.run());
+        this.list
+                .stream()
+                .filter(gameObject -> gameObject.isAlive)
+                .forEach(gameObject -> gameObject.run());
+        this.list.addAll(this.templist);
+        this.templist.clear();
     }
 
     public void renderAll(Graphics graphics){
-        this.list.stream().filter(gameObject -> gameObject.isAlive)
+        this.list
+                .stream()
+                .filter(gameObject -> gameObject.isAlive)
                 .forEach(gameObject -> gameObject.render(graphics));
-        this.list.addAll(this.templist);
-        this.templist.clear();
     }
 
     public Player findPlayer(){
@@ -49,21 +53,10 @@ public class GameObjectManager {
                 .orElse(null);
     }
 
-//    public Enemy checkCollision(Bullet bullet){
-//        return (Enemy) this.list
-//                .stream()
-//                .filter(gameObject -> gameObject.isAlive)
-//                .filter(gameObject -> gameObject instanceof Enemy)
-//                .filter(gameObject -> {
-//                    BoxCollider other = ((Enemy) gameObject).boxCollider;
-//                    return bullet.boxCollider.checkBoxCollider(other);
-//                })
-//                .findFirst()
-//                .orElse(null);
-//    }
-
     public <T extends GameObject> T checkCollision(BoxCollider boxCollider, Class<T> cls){
-        return (T) this.list.stream().filter(gameObject -> gameObject.isAlive)
+        return (T) this.list
+                .stream()
+                .filter(gameObject -> gameObject.isAlive)
                 .filter(gameObject -> cls.isInstance(gameObject) )
                 .filter(gameObject -> gameObject instanceof PhisicBody)
                 .filter(gameObject -> {
@@ -75,7 +68,8 @@ public class GameObjectManager {
     }
 
     public <T extends GameObject> T recycle(Class<T> cls){
-        T object = (T) this.list.stream()
+        T object = (T) this.list
+                .stream()
                 .filter(gameObject -> !gameObject.isAlive)
                 .filter(gameObject -> cls.isInstance(gameObject))
                 .findFirst()
@@ -91,5 +85,11 @@ public class GameObjectManager {
             }
         }
         return object;
+    }
+
+    public void objectDel (GameObject gameObject){
+        if (gameObject.position.x < 0 || gameObject.position.x >= 1024 || gameObject.position.y < 0 || gameObject.position.y >= 600){
+            gameObject.isAlive = false;
+        }
     }
 }
