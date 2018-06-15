@@ -1,7 +1,11 @@
 package game.player;
 
+import base.FrameCounter;
 import base.GameObject;
+import base.GameObjectManager;
 import base.Vector2D;
+import game.effect.Smoke;
+import renderer.ImageRenderer;
 import renderer.PolygonRenderer;
 
 import java.awt.*;
@@ -9,6 +13,7 @@ import java.awt.*;
 public class Player extends GameObject {
     public PlayerMove playerMove;
     public PlayerShoot playerShoot;
+    private FrameCounter frameCounter = new FrameCounter(10);
 
     public Player() {
         this.position = new Vector2D();
@@ -28,8 +33,22 @@ public class Player extends GameObject {
         this.playerShoot.run(this);
 //        this.playerShoot.bulletPlayers.forEach(bulletPlayer -> bulletPlayer.run());
         ((PolygonRenderer)this.renderer).angle = this.playerMove.angle;
+        this.createSmoke();
     }
 
+    private void createSmoke (){
+        if (this.frameCounter.run()){
+            Smoke smoke = GameObjectManager.instance.recycle(Smoke.class);
+            smoke.renderer = new ImageRenderer("resources-rocket/resources/images/circle.png",12,12, Color.white);
+            smoke.position.set(position);
+
+            Vector2D rotate = this.playerMove.velocity.add(
+                    new Vector2D(2,0).rotate(this.playerMove.angle));
+
+            smoke.velocity.set(rotate);
+            this.frameCounter.reset();
+        }
+    }
     public void render(Graphics graphics) {
         super.render(graphics);
 //        this.playerShoot.bulletPlayers.forEach(bulletPlayer -> bulletPlayer.render(graphics));

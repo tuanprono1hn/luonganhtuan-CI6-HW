@@ -9,6 +9,7 @@ import physic.BoxCollider;
 import physic.PhisicBody;
 import renderer.ImageRenderer;
 
+import java.awt.*;
 import java.util.Random;
 
 public class Enemy extends GameObject implements PhisicBody {
@@ -19,7 +20,7 @@ public class Enemy extends GameObject implements PhisicBody {
 
     public Enemy() {
         this.velocity = new Vector2D();
-        this.renderer = new ImageRenderer("resources-rocket/resources/images/circle.png", 20,20);
+        this.renderer = new ImageRenderer("resources-rocket/resources/images/circle.png", 20,20, Color.BLUE);
         this.boxCollider = new BoxCollider(20,20);
         this.enemyShoot = new EnemyShoot();
     }

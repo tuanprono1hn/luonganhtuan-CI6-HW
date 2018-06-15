@@ -4,13 +4,15 @@ import base.GameObject;
 import base.Vector2D;
 import renderer.ImageRenderer;
 
+import java.awt.*;
+
 public class Star extends GameObject {
 
     public Vector2D velocity;
 
     public Star() {
         this.velocity = new Vector2D();
-        this.renderer = new ImageRenderer("resources-rocket/resources/images/star.png", 5, 5);
+        this.renderer = new ImageRenderer("resources-rocket/resources/images/star.png", 5, 5, Color.yellow);
     }
     @Override
     public void run() {

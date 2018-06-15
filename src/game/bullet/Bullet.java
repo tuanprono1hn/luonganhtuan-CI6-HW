@@ -20,12 +20,12 @@ public class Bullet extends GameObject implements PhisicBody {
 
     public Bullet() {
         this.velocity = new Vector2D();
-        this.renderer = new ImageRenderer("resources-rocket/resources/images/circle.png", 6,6);
+        this.renderer = new ImageRenderer("resources-rocket/resources/images/circle.png", 6,6, Color.green);
         this.boxCollider = new BoxCollider(6,6);
-        this.runHitObject = new RunHitObject(
-                Enemy.class
+//        this.runHitObject = new RunHitObject(
+//                Enemy.class
 //                Bullet.class;
-        );
+//        );
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Bullet extends GameObject implements PhisicBody {
 //        if (enemy != null){
 //            this.getHit();
 //            enemy.getHit();
-        this.runHitObject.run(this);
+//        this.runHitObject.run(this);
         }
 
     @Override
